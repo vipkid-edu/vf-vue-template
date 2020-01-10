@@ -1,0 +1,140 @@
+{
+  "assets": {
+    "1": {
+      "type": "image",
+      "name": "1",
+      "url": "title-background.png"
+    },
+    "2": {
+      "type": "image",
+      "name": "2",
+      "url": "content-image-border.png"
+    },
+    "3": {
+      "type": "image",
+      "name": "3",
+      "url": "content-question-img.png"
+    },
+    "4": {
+      "type": "image",
+      "name": "4",
+      "url": "choice-static-wrong.png"
+    },
+    "5": {
+      "type": "image",
+      "name": "5",
+      "url": "choice-static-success.png"
+    }
+  },
+  "global": {},
+  "scenes": [
+    {
+      "id": "0",
+      "libId": "0"
+    }
+  ],
+  "components": {
+    "0": {
+      "type": "custom",
+      "children": [
+        {
+          "id": 1,
+          "libId": 1
+        },
+        {
+          "id": 6,
+          "libId": 6,
+          "y": -10
+        },
+        {
+          "id": 7,
+          "libId": 7,
+          "x": 0,
+          "y": 50,
+          "style": {
+            "display": "grid"
+          }
+        }
+      ],
+      "actionList": [
+        {
+          "type": 0,
+          "value": [
+            0,
+            "hello, vfx."
+          ]
+        }
+      ]
+    },
+    "1": {
+      "type": "Image",
+      "width": 510,
+      "height": 70,
+      "src": 1,
+      "y": 0,
+      "x": 190
+    },
+    "2": {
+      "type": "Image",
+      "width": 293,
+      "height": 221,
+      "src": 2,
+      "y": 139.5,
+      "x": 298.5
+    },
+    "3": {
+      "type": "Image",
+      "width": 281,
+      "height": 208,
+      "src": 3,
+      "y": 146,
+      "x": 304.5
+    },
+    "4": {
+      "type": "Image",
+      "width": 321,
+      "height": 70,
+      "src": 4
+    },
+    "5": {
+      "type": "Image",
+      "width": 321,
+      "height": 70,
+      "src": 5
+    },
+    "6": {
+      "type": "custom",
+      "children": [
+        {
+          "id": 2,
+          "libId": 2
+        },
+        {
+          "id": 3,
+          "libId": 3
+        }
+      ]
+    },
+    "7": {
+      "type": "custom",
+      "children": [
+        {
+          "id": 5,
+          "libId": 5
+        },
+        {
+          "id": 4,
+          "libId": 4
+        }
+      ]
+    }
+  },
+  "name": "VFT2J",
+  "width": 890,
+  "height": 500,
+  "version": "0.0.1",
+  "baseUrl": "http://0.0.0.0/static/",
+  "loadMode": "all",
+  "conversion": "",
+  "scaleMode": "showAll"
+}
