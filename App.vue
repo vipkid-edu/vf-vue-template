@@ -22,23 +22,90 @@
         <div ref="canvas"></div>
     </main>
 </template>
-
 <script>
     import engineJSON from './vf-json'
 
     export default {
       name: 'app',
       methods: {
-        initEngine() {
-          new VF(this.$refs.canvas, {
-            src: engineJSON,
-            bgcolor: '0xffffff',
-            conversionData: {}
-          })
-        }
+        initEngine(option) {
+          //错误计数
+          let errorLoadCount = 0;
+          function createVF() {
+            const vf = new VF(option);
+
+            //详细的接口，可搜索：IVFEngine -> EngineAPI
+            vf.onReady = option.onReady
+            vf.onError = option.onError
+            vf.onMessage = option.onMessage
+            vf.onDispose = option.onDispose
+            vf.onSceneCreate = option.onSceneCreate
+          }
+          function loadScript(index){
+            var s = document.createElement('script');
+            s.async = false;
+            s.src = option.vfvars.cdns[index] + './vf-engine-v' + option.engineVersion + '/vf.js?v' + option.fixVersion;
+            s.addEventListener('load', loadComplete, false);
+            s.addEventListener('error', loadError, false);
+            document.body.appendChild(s);
+          }
+          function loadComplete() {
+            removeEvent(this);
+            createVF();
+          }
+          function loadError() {
+            removeEvent(this);
+            if(errorLoadCount>3){
+              throw ' [LOG VF] vf.js load error';
+              return;
+            }
+            loadScript(1);
+            errorLoadCount++;
+          }
+          function removeEvent(thisObj){
+            thisObj.parentNode.removeChild(thisObj);
+            thisObj.removeEventListener('load', loadComplete, false);
+            thisObj.removeEventListener('error', loadError, false);
+          }
+          loadScript(0);
+        },
+        onVFReady() {},
+        onVFError() {},
+        onVFMessage() {},
+        onVFDispose() {},
+        onVFSceneCreate() {}
       },
       mounted() {
-        this.initEngine();
+        let isProd = true;
+        // TODO: 详细配置 wiki 贴在这里
+        this.initEngine({
+          container: this.$refs.canvas,
+          engineVersion: "0.0.31", //引擎使用的版本
+          fixVersion:'1',
+          bgcolor: '0xffffff',
+          src: './vf-json/index.json', //设置模板数据源地址
+          conversionData: undefined,//需要转换的动态数据
+          debug: true,
+          language: 'zh-CN',
+          // wmode : "transparent", /不填写，不会处理透明，默认白色背景
+          // scaleMode: 'showAll'//不填写，根据配置数据读取 'showAll', 'noScale','cover','contain'
+          vfvars: {
+            useNativeAudio: true, //业务线动态设置,是否使用原生播放
+            cdns:[//必选,引擎库的cdn地址,正式环境需要设置,测试环境设置''
+              isProd? 'https://s.vipkidstatic.com/vf/engine/':"",
+              isProd? 'https://s.vipkidresource.com/vf/engine/':"",
+            ]
+          },
+          plugs: [
+            //{ id: "BoardDrawPlug", role: 1 }, //内置插件,开启画板 role 1老师 2学生
+            //{ id:"SliderEditorPlug", className:'upper-canvas'}, //互动课件业务特殊处理鼠标事件
+          ],
+          onReady: this.onVFReady,
+          onError: this.onVFError,
+          onMessage: this.onVFMessage,
+          onDispose: this.onVFDispose,
+          onSceneCreate: this.onVFSceneCreate
+        });
       }
     }
 </script>
