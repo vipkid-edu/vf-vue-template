@@ -14,12 +14,12 @@ module.exports = merge(common, {
       'BUILD.ENV': "'LOCAL_DEV'",
       'BUILD.DEBUG': "true"
     }),
-    new CopyPlugin([
-      {
-        from: 'static',
-        to: '/'
-      }
-    ])
+    // new CopyPlugin([
+    //   {
+    //     from: 'static',
+    //     to: '/'
+    //   }
+    // ])
   ],
   devServer: {
     host: '0.0.0.0', // can be overwritten by process.env.HOST // can be overwritten by process.env.PORT, if port is in use, a free one will be determined

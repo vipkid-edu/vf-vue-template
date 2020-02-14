@@ -1,30 +1,21 @@
 <style lang="scss">
     .app-page {
-        width: 979px;
-        height: 555px;
-        margin: 0 auto;
+        canvas {
+            border-radius: 10px;
+            border: 2px solid gainsboro;
 
-        > div {
-            border: 2px solid red;
-            box-sizing: border-box;
-            width: 100%;
-            height: 100%;
-
-            canvas {
-                position: static!important;
-            }
+            top: 50% !important;
+            transform: translateY(-50%) !important;
         }
     }
 </style>
 
 <template>
     <main class="app-page">
-        <div ref="canvas"></div>
+        <div ref="canvas" class="vf-container"></div>
     </main>
 </template>
 <script>
-    import engineJSON from './vf-json'
-
     export default {
       name: 'app',
       methods: {
