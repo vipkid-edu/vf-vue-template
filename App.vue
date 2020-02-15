@@ -16,6 +16,7 @@
     </main>
 </template>
 <script>
+    import vfjson from './vf-json/index.json'
     export default {
       name: 'app',
       methods: {
@@ -67,14 +68,17 @@
         onVFSceneCreate() {}
       },
       mounted() {
+        /*
+        * VF引擎配置文档: http://wiki.vipkid.com.cn/pages/viewpage.action?pageId=109175790
+        * */
         let isProd = true;
-        // TODO: 详细配置 wiki 贴在这里
         this.initEngine({
           container: this.$refs.canvas,
           engineVersion: "0.0.31", //引擎使用的版本
           fixVersion:'1',
           bgcolor: '0xffffff',
-          src: './vf-json/index.json', //设置模板数据源地址
+          src: vfjson, // 两种写法，可以直接将数据传入，也可以传入一个URL地址
+          // src: './vf-json/index.json', //设置模板数据源地址
           conversionData: undefined,//需要转换的动态数据
           debug: true,
           language: 'zh-CN',
