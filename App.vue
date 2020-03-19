@@ -16,11 +16,12 @@
     </main>
 </template>
 <script>
+    // ts2json 根据 t2j.config.json 配置产出的 JSON 文件
     import vfjson from './vf-json/index.json'
     export default {
       name: 'app',
       methods: {
-        initEngine(option) {
+        initEngine(option = {}) {
           //错误计数
           let errorLoadCount = 0;
           function createVF() {
@@ -74,20 +75,18 @@
         * */
         let isProd = true;
         this.initEngine({
-          container: this.$refs.canvas,
-          engineVersion: "0.0.39", //引擎使用的版本
-          fixVersion:'1',
-          bgcolor: '0xffffff',
-          src: vfjson, // 两种写法，可以直接将数据传入，也可以传入一个URL地址
-          // src: './vf-json/index.json', //设置模板数据源地址
-          conversionData: undefined,//需要转换的动态数据
+          src: vfjson,
           debug: true,
-          language: 'zh-CN',
-          // wmode : "transparent", /不填写，不会处理透明，默认白色背景
-          // scaleMode: 'showAll'//不填写，根据配置数据读取 'showAll', 'noScale','cover','contain'
+          bgcolor: '0xffffff',
+          engineVersion: "0.0.39",
+          container: this.$refs.canvas,
+          onReady: this.onVFReady,
+          onError: this.onVFError,
+          onMessage: this.onVFMessage,
+          onDispose: this.onVFDispose,
+          onSceneCreate: this.onVFSceneCreate,
           vfvars: {
-            useNativeAudio: true, //业务线动态设置,是否使用原生播放
-            cdns:{ //必选,引擎库的cdn地址,正式环境需要设置,测试环境设置''
+            cdns: {
               default:[
                 isProd? 'https://s.vipkidstatic.com/':"",
                 isProd? 'https://s.vipkidresource.com/':"",
@@ -106,15 +105,6 @@
               ],
             }
           },
-          plugs: [
-            //{ id: "BoardDrawPlug", role: 1 }, //内置插件,开启画板 role 1老师 2学生
-            //{ id:"SliderEditorPlug", className:'upper-canvas'}, //互动课件业务特殊处理鼠标事件
-          ],
-          onReady: this.onVFReady,
-          onError: this.onVFError,
-          onMessage: this.onVFMessage,
-          onDispose: this.onVFDispose,
-          onSceneCreate: this.onVFSceneCreate
         });
       }
     }
