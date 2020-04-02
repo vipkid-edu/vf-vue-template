@@ -29,15 +29,7 @@
           "x": 395
         }
       ],
-      "actionList": [
-        {
-          "type": 0,
-          "value": [
-            0,
-            "hello, vfx."
-          ]
-        }
-      ]
+      "actionList": []
     },
     "1": {
       "type": "Image",

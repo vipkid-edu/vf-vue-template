@@ -3,6 +3,11 @@ const merge = require('webpack-merge')
 const common = require('./webpack.common')
 const Webpack = require('webpack')
 const CopyPlugin = require('copy-webpack-plugin');
+const checkUpdate = require('./update')
+
+setTimeout(() => {
+  checkUpdate()
+}, 1500)
 
 console.log('✨ 正在执行[本地环境] build..')
 module.exports = merge(common, {
